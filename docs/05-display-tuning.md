@@ -22,9 +22,9 @@ Run the client with `-k` and read the overlay:
 FPS:61.88  UPS:59.89
 ```
 
-| | Meaning |
-|---|---|
-| **UPS** | Frames the *host* captures inside the VM |
+|         | Meaning                                         |
+|---------|-------------------------------------------------|
+| **UPS** | Frames the *host* captures inside the VM        |
 | **FPS** | Frames the *client* draws on your Linux desktop |
 
 > [!IMPORTANT]
@@ -35,10 +35,10 @@ FPS:61.88  UPS:59.89
 
 Interpretation:
 
-| Observation | Where to look |
-|---|---|
-| UPS low, FPS matches it | Inside the VM — capture or display mode |
-| UPS high, FPS low | Linux side — compositor, client renderer |
+| Observation                                                                 | Where to look                                                                                   |
+|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| UPS low, FPS matches it                                                     | Inside the VM — capture or display mode                                                         |
+| UPS high, FPS low                                                           | Linux side — compositor, client renderer                                                        |
 | **UPS is an exact divisor** of the guest refresh rate (60 of 120, 45 of 90) | **VSync is dropping frames** — something in the chain cannot sustain the rate. Go to Ceiling 3. |
 
 That last row is the useful one. A pipeline that *almost* keeps up does not
@@ -89,7 +89,7 @@ CRU.exe → select the dummy plug's display (not the emulated one)
 ```
 
 > [!NOTE]
-> In CRU 1.5.3 the extension block is labelled **CTA-861**, not CEA-861 — the
+> In CRU 1.5.3 the extension block is labeled **CTA-861**, not CEA-861 — the
 > standards body was renamed in 2016.
 
 > [!TIP]
@@ -220,12 +220,12 @@ Compute your own budget:
 
 All four of these were tested and measured on the reference machine:
 
-| Hypothesis | Result |
-|---|---|
-| Buy a better dummy plug (DisplayPort) | **No.** The HDMI 2.0 block lifts the EDID ceiling on the existing plug. |
-| The GPU is too weak / saturated | **No.** `utilization.gpu` measured 64 %, never 100 %. |
-| The GPU is stuck at low clocks | **No.** Locked to 2017 MHz with `nvidia-smi --lock-gpu-clocks`, plus *Prefer maximum performance*: no change. |
-| The application caps itself at 60 | **No.** It reaches 120 at 1080p, and exposes no VSync or frame-limit setting. |
+| Hypothesis                            | Result                                                                                                        |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| Buy a better dummy plug (DisplayPort) | **No.** The HDMI 2.0 block lifts the EDID ceiling on the existing plug.                                       |
+| The GPU is too weak / saturated       | **No.** `utilization.gpu` measured 64 %, never 100 %.                                                         |
+| The GPU is stuck at low clocks        | **No.** Locked to 2017 MHz with `nvidia-smi --lock-gpu-clocks`, plus *Prefer maximum performance*: no change. |
+| The application caps itself at 60     | **No.** It reaches 120 at 1080p, and exposes no VSync or frame-limit setting.                                 |
 
 > [!IMPORTANT]
 > **A more powerful GPU would change nothing.** The bottleneck is reading the

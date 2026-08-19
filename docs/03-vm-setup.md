@@ -8,15 +8,15 @@ its default.
 
 In virt-manager, *New virtual machine*:
 
-| Setting | Value | Why |
-|---|---|---|
+| Setting  | Value                        | Why                                                   |
+|----------|------------------------------|-------------------------------------------------------|
 | Firmware | **UEFI** (`OVMF_CODE.4m.fd`) | Modern GPUs expect UEFI; legacy BIOS needs extra work |
-| Chipset | **Q35** | i440FX has no proper PCIe |
-| CPU | **host-passthrough** | The guest sees your real CPU |
-| Memory | 8 GB | Enough for Windows plus one application |
-| Disk bus | **VirtIO** | Much faster than emulated SATA |
-| Network | **VirtIO** | Same reason |
-| TPM | **Emulated (swtpm)** | Required for Windows 11; harmless on 10 |
+| Chipset  | **Q35**                      | i440FX has no proper PCIe                             |
+| CPU      | **host-passthrough**         | The guest sees your real CPU                          |
+| Memory   | 8 GB                         | Enough for Windows plus one application               |
+| Disk bus | **VirtIO**                   | Much faster than emulated SATA                        |
+| Network  | **VirtIO**                   | Same reason                                           |
+| TPM      | **Emulated (swtpm)**         | Required for Windows 11; harmless on 10               |
 
 Tick *Customize configuration before install*.
 
@@ -38,8 +38,9 @@ Install Windows normally, using the emulated display. Add the GPU afterwards.
 </cpu>
 ```
 
-Report cores as cores of a single socket. Windows licensing limits physical
-sockets, and a topology of "6 sockets" can leave you with one usable core.
+Report the cores as belonging to a single socket. Windows licensing limits
+physical sockets, and a topology of "6 sockets" can leave you with one usable
+core.
 
 > [!IMPORTANT]
 > `<maxphysaddr>` is not optional with GPU passthrough on many systems. Without
@@ -74,7 +75,7 @@ Add **both** functions of the card as PCI host devices:
 
 > [!WARNING]
 > **Skipping this causes QEMU to crash outright** — a SIGSEGV a few seconds after
-> Windows initialises the display, reproducible every time. It is not a guest
+> Windows initializes the display, reproducible every time. It is not a guest
 > crash; the whole VM process dies.
 
 Consumer graphics cards cannot re-POST inside a VM without an explicit copy of

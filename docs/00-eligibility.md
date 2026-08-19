@@ -77,6 +77,12 @@ the group also holds a USB controller, a SATA controller, or your network card,
 you cannot pass the GPU without passing those too — which usually means losing
 your keyboard or your disk.
 
+> [!NOTE]
+> If you have not bought the second card yet, you cannot check its group
+> directly — grouping depends on the slot. Section 6 of the script lists the
+> bridges and their widths, which is a good indicator but not proof. Buy from
+> somewhere with a returns policy.
+
 > [!CAUTION]
 > The common advice for a dirty group is the **ACS override patch**. It works by
 > telling the kernel to ignore the grouping the hardware reports. That weakens
@@ -118,24 +124,24 @@ scales with resolution and refresh rate:
 bytes per second = width × height × 4 × refresh_hz
 ```
 
-| Mode | Per frame | At that refresh |
-|---|---|---|
-| 1920×1080 @ 60 | 8.29 MB | 0.50 GB/s |
-| 1920×1080 @ 120 | 8.29 MB | 0.99 GB/s |
-| 2560×1440 @ 60 | 14.75 MB | 0.88 GB/s |
-| 2560×1440 @ 90 | 14.75 MB | 1.33 GB/s |
-| 2560×1440 @ 120 | 14.75 MB | 1.77 GB/s |
-| 3840×2160 @ 60 | 33.18 MB | 1.99 GB/s |
+| Mode            | Per frame | At that refresh |
+|-----------------|-----------|-----------------|
+| 1920×1080 @ 60  | 8.29 MB   | 0.50 GB/s       |
+| 1920×1080 @ 120 | 8.29 MB   | 0.99 GB/s       |
+| 2560×1440 @ 60  | 14.75 MB  | 0.88 GB/s       |
+| 2560×1440 @ 90  | 14.75 MB  | 1.33 GB/s       |
+| 2560×1440 @ 120 | 14.75 MB  | 1.77 GB/s       |
+| 3840×2160 @ 60  | 33.18 MB  | 1.99 GB/s       |
 
 Against what a link can actually carry (roughly 80 % of theoretical):
 
-| Link | Theoretical | Realistic |
-|---|---|---|
-| PCIe 3.0 x1 | 0.99 GB/s | ~0.8 GB/s |
-| PCIe 4.0 x1 | 1.97 GB/s | ~1.6 GB/s |
-| PCIe 3.0 x4 | 3.94 GB/s | ~3.2 GB/s |
-| PCIe 4.0 x4 | 7.88 GB/s | ~6.3 GB/s |
-| PCIe 4.0 x16 | 31.5 GB/s | ~25 GB/s |
+| Link         | Theoretical | Realistic |
+|--------------|-------------|-----------|
+| PCIe 3.0 x1  | 0.99 GB/s   | ~0.8 GB/s |
+| PCIe 4.0 x1  | 1.97 GB/s   | ~1.6 GB/s |
+| PCIe 3.0 x4  | 3.94 GB/s   | ~3.2 GB/s |
+| PCIe 4.0 x4  | 7.88 GB/s   | ~6.3 GB/s |
+| PCIe 4.0 x16 | 31.5 GB/s   | ~25 GB/s  |
 
 **An x1 slot restricts you to roughly 1440p at 90 Hz, or 1080p at 120 Hz.** An
 x4 slot removes the constraint for any realistic desktop resolution.
@@ -145,9 +151,9 @@ reads your actual link and prints the modes that fit.
 
 ## Verdict
 
-| Result | What to do |
-|---|---|
-| All three pass | Continue to [01 — Choosing hardware](01-hardware.md) |
-| No IOMMU in BIOS | Stop. Without it, passthrough is impossible. |
-| Dirty IOMMU group | Try the GPU in a different slot first — grouping is per-slot. Only then consider ACS override. |
-| Only an x1 slot free | Continue, but set expectations using the table above. |
+| Result               | What to do                                                                                     |
+|----------------------|------------------------------------------------------------------------------------------------|
+| All three pass       | Continue to [01 — Choosing hardware](01-hardware.md)                                           |
+| No IOMMU in BIOS     | Stop. Without it, passthrough is impossible.                                                   |
+| Dirty IOMMU group    | Try the GPU in a different slot first — grouping is per-slot. Only then consider ACS override. |
+| Only an x1 slot free | Continue, but set expectations using the table above.                                          |

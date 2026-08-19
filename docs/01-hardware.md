@@ -4,8 +4,8 @@ Two purchases, both small. The mistakes are in the details.
 
 ## The second GPU
 
-This card renders inside the VM. Two things matter, and raw performance is not
-one of them.
+This card renders inside the VM. Several things matter, and raw performance is
+not one of them.
 
 ### It must have real Direct3D support for your workload
 
@@ -42,7 +42,7 @@ The 8GB variant needs one.
 
 ### Check physical fit before ordering
 
-Two GPUs in one case is tighter than it looks. Verify:
+Fitting two GPUs in one case is tighter than it looks. Verify:
 
 - **Length** against your case's clearance
 - **Slot thickness** — a 2-slot card in the second slot may be blocked by a
@@ -73,10 +73,10 @@ Cost: €5–15.
 > Most cheap plugs advertise "4K" but declare modes like `3840×2160 @ 17Hz` or
 > `2560×1440 @ 30Hz`. Resolution is not the useful number here.
 
-| Look for | Avoid |
-|---|---|
+| Look for                                  | Avoid                    |
+|-------------------------------------------|--------------------------|
 | "1080p@120Hz", "1440p@144Hz" in the specs | "4K@30Hz", "…@17Hz" only |
-| DisplayPort, if your card has a free one | — |
+| DisplayPort, if your card has a free one  | —                        |
 
 **DisplayPort is the safer choice** where available: it has no equivalent of
 HDMI's TMDS clock ceiling, which is a real obstacle on HDMI plugs
@@ -84,13 +84,13 @@ HDMI's TMDS clock ceiling, which is a real obstacle on HDMI plugs
 
 ### The HDMI trap, and why it is survivable
 
-The reference machine uses an **HDMI** plug labelled "4K 60Hz". That label means
+The reference machine uses an **HDMI** plug labeled "4K 60Hz". That label means
 4K at 60 Hz *with 4:2:0 chroma subsampling* — an HDMI 1.4 capability. In
 practice the plug negotiates HDMI 1.4 and the driver refuses any mode above
 **340 MHz** pixel clock.
 
-That blocks 2560×1440 at 120 Hz (498 MHz) but not at 90 Hz (365 MHz)… except
-that 365 MHz is also above 340.
+That blocks 2560×1440 at 120 Hz (498 MHz) and at 90 Hz (365 MHz) alike — both
+sit above 340.
 
 **This is fixable in software** by declaring an HDMI 2.0 data block in the EDID —
 [full procedure in 05](05-display-tuning.md#ceiling-2--hdmi-14-tmds-limit). So an

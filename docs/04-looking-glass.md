@@ -2,7 +2,7 @@
 
 Looking Glass has two halves: a **host** application inside Windows that captures
 the desktop into shared memory, and a **client** on Linux that displays it. Most
-problems are the host silently not running.
+problems come down to the host silently not running.
 
 ## Install the host in the guest
 
@@ -19,11 +19,12 @@ the guest. Version mismatch between host and client is not tolerated.
 >
 > Worse: **unplugging it afterwards does not recover the boot.** PCI enumeration
 > has already happened. The only way out is `virsh destroy` followed by a fresh
-> start, which is safe because Windows never began.
+> start, which is safe because Windows never started.
 >
-> Verified on two plugs from different batches, so this is structural rather than
-> a defective unit. A single boot that succeeds with the plug attached is luck,
-> not a sign the constraint has gone.
+> Verified on two separate plugs (from the same multipack, so a shared defect is
+> not fully excluded — but the mechanism points to firmware, not the plug). A
+> single boot that succeeds with the plug attached is luck, not a sign the
+> constraint has gone.
 
 The working order is therefore:
 
@@ -95,7 +96,7 @@ Two mistakes worth avoiding, both cost time here:
 >   letting the script run unelevated while `schtasks` answered `Access is
 >   denied.` Re-invoke unconditionally through `RunAs` with an argument marker
 >   instead.
-> - **`[TimeSpan]::MaxValue` is rejected** by Task Scheduler — it serialises to
+> - **`[TimeSpan]::MaxValue` is rejected** by Task Scheduler — it serializes to
 >   `P99999999DT23H59M59S`, which fails validation with *"value out of range"*.
 >   Use a bounded duration; the window restarts at every logon anyway.
 
@@ -145,17 +146,17 @@ Once the plug is attached the emulated display is black, so you cannot see the
 guest to fix it. The solution is a shared folder and scripts that write their
 output to files you read from Linux.
 
-Put the scripts in [`scripts/guest/`](../scripts/guest/) into the shared folder,
-mapped as `Z:` in the guest.
+Copy the scripts from [`scripts/guest/`](../scripts/guest/) into the shared
+folder, mapped as `Z:` in the guest.
 
-| Script | Purpose | Needs admin |
-|---|---|---|
-| `DIAG.bat` | Video adapters and monitors (WMI + PnP) | no |
-| `REFRESH.bat` | Actual resolution and refresh rate, EDID modes | no |
-| `GPUCHECK.bat` | Instantaneous GPU load | no |
-| `GPUWATCH.bat` | **Delayed** GPU sampling — see below | no |
-| `LG-INSTALL.bat` | Install the scheduled task | yes |
-| `LGGO.bat` | Restart the host via `schtasks /run` | no |
+| Script           | Purpose                                        | Needs admin |
+|------------------|------------------------------------------------|-------------|
+| `DIAG.bat`       | Video adapters and monitors (WMI + PnP)        | no          |
+| `REFRESH.bat`    | Actual resolution and refresh rate, EDID modes | no          |
+| `GPUCHECK.bat`   | Instantaneous GPU load                         | no          |
+| `GPUWATCH.bat`   | **Delayed** GPU sampling — see below           | no          |
+| `LG-INSTALL.bat` | Install the scheduled task                     | yes         |
+| `LGGO.bat`       | Restart the host via `schtasks /run`           | no          |
 
 Read the results from the host:
 

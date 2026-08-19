@@ -13,11 +13,11 @@ bad()  { printf '  \033[31m✘\033[0m %s\n' "$*"; }
 warn() { printf '  \033[33m!\033[0m %s\n' "$*"; }
 hdr()  { printf '\n\033[1m== %s\033[0m\n' "$*"; }
 
-hdr "1. CPU virtualisation"
+hdr "1. CPU virtualization"
 if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo; then
   grep -q '\bvmx\b' /proc/cpuinfo && ok "VT-x present (Intel)" || ok "AMD-V present"
 else
-  bad "No hardware virtualisation — enable VT-x / SVM in the BIOS"
+  bad "No hardware virtualization — enable VT-x / SVM in the BIOS"
 fi
 [ -e /dev/kvm ] && ok "/dev/kvm present" || bad "/dev/kvm missing (kvm_intel / kvm_amd not loaded?)"
 if [ -r /dev/kvm ] && [ -w /dev/kvm ]; then

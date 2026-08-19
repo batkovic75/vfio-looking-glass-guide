@@ -1,8 +1,8 @@
 # Windows VM with GPU passthrough + Looking Glass — a field guide
 
 Run a Windows application that needs a **real GPU and real kernel-mode drivers**
-from your Linux desktop — in a window, at native speed, without dual-booting and
-without giving up your main graphics card.
+from your Linux desktop — in a window, hardware-accelerated, without
+dual-booting and without giving up your main graphics card.
 
 This guide documents a setup that works, and — more importantly — **how to
 diagnose it when it doesn't**.
@@ -20,11 +20,11 @@ There are already excellent references for the general technique — the
 and the [Looking Glass documentation](https://looking-glass.io/docs). **Read
 them.** This guide does not try to replace either.
 
-What is badly documented anywhere is what happens when the thing is *almost*
+What no reference covers well is what happens when the thing is *almost*
 working: the display comes up but stutters, the capture host dies silently, the
 dummy plug hangs your firmware, or the frame rate locks to exactly half of what
-you asked for. Every one of those cost hours to diagnose. They are written down
-here so they cost you minutes.
+you asked for. Every one of those took hours to diagnose. They are written
+down here so they cost you minutes.
 
 **Start at [Troubleshooting](docs/06-troubleshooting.md) if something is already
 broken.** It is indexed by symptom.
@@ -62,12 +62,12 @@ You do **not** need to know anything about VFIO — every step is explained. You
 
 Hardware requirements, in order of what stops people:
 
-| Requirement | Why | How to check |
-|---|---|---|
-| Two GPUs | One stays with Linux, one is handed to the VM | `lspci -nn \| grep -E '\[030[02]\]'` |
-| IOMMU support, enabled in BIOS | Required to isolate the GPU for passthrough | [`scripts/check-iommu.sh`](scripts/check-iommu.sh) |
-| Clean IOMMU group for the VM's GPU | A group shared with storage or USB cannot be passed safely | same script |
-| A free PCIe slot | **Check its electrical width** — see below | [`scripts/pcie-capture-budget.sh`](scripts/pcie-capture-budget.sh) |
+| Requirement                        | Why                                                        | How to check                                                       |
+|------------------------------------|------------------------------------------------------------|--------------------------------------------------------------------|
+| Two GPUs                           | One stays with Linux, one is handed to the VM              | `lspci -nn \| grep -E '\[030[02]\]'`                               |
+| IOMMU support, enabled in BIOS     | Required to isolate the GPU for passthrough                | [`scripts/check-iommu.sh`](scripts/check-iommu.sh)                 |
+| Clean IOMMU group for the VM's GPU | A group shared with storage or USB cannot be passed safely | same script                                                        |
+| A free PCIe slot                   | **Check its electrical width** — see below                 | [`scripts/pcie-capture-budget.sh`](scripts/pcie-capture-budget.sh) |
 
 > [!IMPORTANT]
 > **Check the slot width before you buy anything.** Looking Glass reads every
@@ -96,24 +96,24 @@ documentation rather than tested here — treat them as pointers, not gospel.
 
 ## Guide
 
-| # | Document | Read it when |
-|---|---|---|
-| 00 | [Eligibility check](docs/00-eligibility.md) | **First.** Before spending any money. |
-| 01 | [Choosing hardware](docs/01-hardware.md) | Picking the second GPU and the display dummy plug |
-| 02 | [Host setup](docs/02-host-setup.md) | IOMMU, binding the GPU to vfio-pci, initramfs |
-| 03 | [VM setup](docs/03-vm-setup.md) | libvirt XML, the parts that actually matter |
-| 04 | [Looking Glass](docs/04-looking-glass.md) | Shared memory, and starting the host reliably |
-| 05 | [Display tuning](docs/05-display-tuning.md) | Resolution, refresh rate, EDID, capture bandwidth |
-| 06 | [**Troubleshooting**](docs/06-troubleshooting.md) | **Something is broken.** Indexed by symptom. |
+| #  | Document                                          | Read it when                                      |
+|----|---------------------------------------------------|---------------------------------------------------|
+| 00 | [Eligibility check](docs/00-eligibility.md)       | **First.** Before spending any money.             |
+| 01 | [Choosing hardware](docs/01-hardware.md)          | Picking the second GPU and the display dummy plug |
+| 02 | [Host setup](docs/02-host-setup.md)               | IOMMU, binding the GPU to vfio-pci, initramfs     |
+| 03 | [VM setup](docs/03-vm-setup.md)                   | libvirt XML, the parts that actually matter       |
+| 04 | [Looking Glass](docs/04-looking-glass.md)         | Shared memory, and starting the host reliably     |
+| 05 | [Display tuning](docs/05-display-tuning.md)       | Resolution, refresh rate, EDID, capture bandwidth |
+| 06 | [**Troubleshooting**](docs/06-troubleshooting.md) | **Something is broken.** Indexed by symptom.      |
 
 ## Scripts
 
-| Script | Runs on | Purpose |
-|---|---|---|
-| [`check-iommu.sh`](scripts/check-iommu.sh) | host | Is this machine capable? Reports IOMMU groups. |
-| [`bind-vfio.sh`](scripts/bind-vfio.sh) | host | Generates the vfio-pci binding config safely |
-| [`pcie-capture-budget.sh`](scripts/pcie-capture-budget.sh) | host | Reads the real PCIe link width, prints which resolution/refresh combinations fit |
-| [`scripts/guest/`](scripts/guest/) | guest | Diagnostics that work **with no visible screen** |
+| Script                                                     | Runs on | Purpose                                                                          |
+|------------------------------------------------------------|---------|----------------------------------------------------------------------------------|
+| [`check-iommu.sh`](scripts/check-iommu.sh)                 | host    | Is this machine capable? Reports IOMMU groups.                                   |
+| [`bind-vfio.sh`](scripts/bind-vfio.sh)                     | host    | Generates the vfio-pci binding config safely                                     |
+| [`pcie-capture-budget.sh`](scripts/pcie-capture-budget.sh) | host    | Reads the real PCIe link width, prints which resolution/refresh combinations fit |
+| [`scripts/guest/`](scripts/guest/)                         | guest   | Diagnostics that work **with no visible screen**                                 |
 
 ## Contributing
 

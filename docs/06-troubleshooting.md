@@ -5,29 +5,29 @@ hardware.
 
 ## Quick index
 
-| Symptom | Section |
-|---|---|
-| QEMU crashes seconds after the guest initialises video | [Host process dies](#qemu-crashes-when-video-starts) |
-| `vfio: DMA mapping failed, unable to continue` | [DMA mapping](#vfio-dma-mapping-failed) |
-| `can't open backing store /dev/kvmfr0` | [Shared memory permissions](#cant-open-backing-store-devkvmfr0) |
-| VM hangs on the TianoCore splash forever | [UEFI hang](#vm-hangs-on-the-tianocore-splash) |
-| Looking Glass host exits immediately | [Host will not start](#looking-glass-host-exits-immediately) |
-| Client says *host application seems to not be running* | [Host will not start](#looking-glass-host-exits-immediately) |
-| Client crashes with an assertion in `vector.c` | [Missing ivshmem](#client-or-host-asserts-in-vectorc) |
+| Symptom                                                 | Section                                                          |
+|---------------------------------------------------------|------------------------------------------------------------------|
+| QEMU crashes seconds after the guest initializes video  | [Host process dies](#qemu-crashes-when-video-starts)             |
+| `vfio: DMA mapping failed, unable to continue`          | [DMA mapping](#vfio-dma-mapping-failed)                          |
+| `can't open backing store /dev/kvmfr0`                  | [Shared memory permissions](#cant-open-backing-store-devkvmfr0)  |
+| VM hangs on the TianoCore splash forever                | [UEFI hang](#vm-hangs-on-the-tianocore-splash)                   |
+| Looking Glass host exits immediately                    | [Host will not start](#looking-glass-host-exits-immediately)     |
+| Client says *host application seems to not be running*  | [Host will not start](#looking-glass-host-exits-immediately)     |
+| Client crashes with an assertion in `vector.c`          | [Missing ivshmem](#client-or-host-asserts-in-vectorc)            |
 | Black screen and nothing responds after `restart64.exe` | [Recovering a black screen](#black-screen-with-nothing-to-click) |
-| Mouse dead in the guest, keyboard fine | [Mouse](#mouse-dead-in-the-guest) |
-| An application launches but nothing appears | [Invisible UAC](#applications-launch-but-nothing-appears) |
-| Stutter, UPS stuck around 30 | [Refresh rate](#stutter-with-ups-around-30) |
-| Frame rate locked to exactly half the refresh rate | [Capture bandwidth](#frame-rate-locked-to-exactly-half) |
-| GPU missing from Device Manager, one display only | [Reset bug](#gpu-vanished-from-the-guest) |
-| Guest has no network | [Networking](#guest-has-no-network) |
+| Mouse dead in the guest, keyboard fine                  | [Mouse](#mouse-dead-in-the-guest)                                |
+| An application launches but nothing appears             | [Invisible UAC](#applications-launch-but-nothing-appears)        |
+| Stutter, UPS stuck around 30                            | [Refresh rate](#stutter-with-ups-around-30)                      |
+| Frame rate locked to exactly half the refresh rate      | [Capture bandwidth](#frame-rate-locked-to-exactly-half)          |
+| GPU missing from Device Manager, one display only       | [Reset bug](#gpu-vanished-from-the-guest)                        |
+| Guest has no network                                    | [Networking](#guest-has-no-network)                              |
 
 ---
 
 ## QEMU crashes when video starts
 
 **Symptom.** The whole QEMU process dies with `SIGSEGV`, a few seconds after
-Windows initialises the passed-through display. Reproducible every time.
+Windows initializes the passed-through display. Reproducible every time.
 
 **Cause.** Consumer GPUs cannot re-POST inside a VM without an explicit copy of
 their video BIOS.
@@ -96,8 +96,8 @@ If the module is missing after a host reboot, you skipped
 started — then boot with the plug **removed** and attach it after logging in.
 
 > Unplugging while it is hung does **not** help. PCI enumeration has already
-> happened. Verified on two different plugs; a single successful boot with the
-> plug attached is luck, not a change in behaviour.
+> happened. Verified on two separate plugs; a single successful boot with the
+> plug attached is luck, not a change in behavior.
 
 ---
 

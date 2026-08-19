@@ -131,10 +131,10 @@ Size follows the Looking Glass formula — `width × height × 4 × 2`, rounded 
 the next power of two:
 
 | Guest resolution | Minimum |
-|---|---|
-| 1920×1080 | 32 MB |
-| 2560×1440 | 64 MB |
-| 3840×2160 | 128 MB |
+|------------------|---------|
+| 1920×1080        | 32 MB   |
+| 2560×1440        | 64 MB   |
+| 3840×2160        | 128 MB  |
 
 `/etc/modprobe.d/kvmfr.conf`:
 
