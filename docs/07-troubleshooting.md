@@ -1,4 +1,4 @@
-# 06 — Troubleshooting
+# 07 — Troubleshooting
 
 Indexed by **what you observe**. Every entry here was hit and diagnosed on real
 hardware.
@@ -252,9 +252,10 @@ give ragged values like 87 or 103.
 ```
 
 **Fix.** Choose a refresh rate that fits the budget — including intermediate
-values like 75, 90 or 100, which you can create in CRU. Full reasoning and the
-measurements that ruled out GPU power, GPU clocks and application limits in
-[05 §Capture bandwidth](05-display-tuning.md#capture-bandwidth).
+values like 75, 90 or 100, which you can create in CRU. Full reasoning in
+[05 §Capture bandwidth](05-display-tuning.md#capture-bandwidth); the
+measurements that ruled out GPU power, GPU clocks and application limits are in
+[06 §Levers that did nothing](06-performance.md#levers-that-did-nothing).
 
 ---
 

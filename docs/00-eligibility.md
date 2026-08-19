@@ -157,3 +157,7 @@ reads your actual link and prints the modes that fit.
 | No IOMMU in BIOS     | Stop. Without it, passthrough is impossible.                                                   |
 | Dirty IOMMU group    | Try the GPU in a different slot first — grouping is per-slot. Only then consider ACS override. |
 | Only an x1 slot free | Continue, but set expectations using the table above.                                          |
+
+## Next
+
+[01 — Choosing hardware](01-hardware.md)

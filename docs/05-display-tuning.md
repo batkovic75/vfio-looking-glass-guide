@@ -253,4 +253,4 @@ to 60 and 120: if 120 does not fit and 60 wastes headroom, create 75, 90, or 100
 
 ## Next
 
-[06 — Troubleshooting](06-troubleshooting.md)
+[06 — Performance](06-performance.md)

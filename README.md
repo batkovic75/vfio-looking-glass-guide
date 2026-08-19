@@ -26,7 +26,7 @@ dummy plug hangs your firmware, or the frame rate locks to exactly half of what
 you asked for. Every one of those took hours to diagnose. They are written
 down here so they cost you minutes.
 
-**Start at [Troubleshooting](docs/06-troubleshooting.md) if something is already
+**Start at [Troubleshooting](docs/07-troubleshooting.md) if something is already
 broken.** It is indexed by symptom.
 
 ## What you get
@@ -43,7 +43,8 @@ broken.** It is indexed by symptom.
   application refuses to run in a VM, this guide will not change that, and you
   should respect that decision.
 - **Not a performance win.** A VM plus capture overhead is always slower than
-  running the same software natively on the same hardware.
+  running the same software natively on the same hardware — see
+  [Performance](docs/06-performance.md) for what that costs in practice.
 - **Not beginner-friendly in the "no experience needed" sense.** See below.
 
 ## Honest prerequisites
@@ -104,7 +105,8 @@ documentation rather than tested here — treat them as pointers, not gospel.
 | 03 | [VM setup](docs/03-vm-setup.md)                   | libvirt XML, the parts that actually matter       |
 | 04 | [Looking Glass](docs/04-looking-glass.md)         | Shared memory, and starting the host reliably     |
 | 05 | [Display tuning](docs/05-display-tuning.md)       | Resolution, refresh rate, EDID, capture bandwidth |
-| 06 | [**Troubleshooting**](docs/06-troubleshooting.md) | **Something is broken.** Indexed by symptom.      |
+| 06 | [Performance](docs/06-performance.md)             | What to expect, how to measure, which levers work |
+| 07 | [**Troubleshooting**](docs/07-troubleshooting.md) | **Something is broken.** Indexed by symptom.      |
 
 ## Scripts
 

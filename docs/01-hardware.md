@@ -112,3 +112,7 @@ proved the UEFI boot hang was inherent to the approach rather than a bad unit.
   running one application.
 - **A faster CPU.** Passthrough overhead is small; the reference machine assigns
   6 of its cores to the guest and the host never notices.
+
+## Next
+
+[02 — Host setup](02-host-setup.md)
