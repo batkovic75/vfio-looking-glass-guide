@@ -1,0 +1,6 @@
+# Batch and PowerShell files run inside Windows and MUST keep CRLF endings.
+# Without this, git normalises them on checkout and cmd.exe fails confusingly.
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.sh  text eol=lf
+*.md  text eol=lf
