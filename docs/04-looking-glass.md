@@ -140,6 +140,30 @@ Loaded automatically; no command-line flag needed.
 > time.** They compete for the same SPICE channel and disconnect each other.
 > Close the virt-manager viewer window before starting the client.
 
+## Daily use
+
+The whole sequence is scripted:
+
+```bash
+VM=my-guest ./scripts/start-vm.sh
+VM=my-guest ./scripts/stop-vm.sh
+```
+
+`start-vm.sh` verifies the shared memory device and the vfio-pci binding before
+touching anything, reminds you to unplug the dummy plug, boots the VM, and
+attaches the viewer immediately — so boot and login are visible through the
+SPICE fallback, and virt-manager is never needed.
+
+> [!TIP]
+> **Closing the Looking Glass window does not stop the VM.** It only stops the
+> display; the guest keeps running with the GPU powered. `start-vm.sh` says so
+> when the viewer exits and offers to shut down; `stop-vm.sh` handles the case
+> where the viewer is already closed.
+
+`stop-vm.sh` does an ACPI shutdown and only offers a hard cut after two minutes,
+explaining both likely causes. That restraint matters: repeated hard resets are
+what feed the [PCIe reset bug](07-troubleshooting.md#gpu-vanished-from-the-guest).
+
 ## Diagnostics without a screen
 
 Once the plug is attached the emulated display is black, so you cannot see the

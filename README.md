@@ -95,6 +95,19 @@ Steps that differ on **AMD** hardware or **non-Arch** distributions are flagged
 inline with an `AMD:` or `Non-Arch:` note. Those variants are reasoned from
 documentation rather than tested here — treat them as pointers, not gospel.
 
+## Daily use
+
+Once set up, the whole cycle is two commands:
+
+```bash
+VM=my-guest ./scripts/start-vm.sh      # boot + viewer
+VM=my-guest ./scripts/stop-vm.sh       # clean shutdown
+```
+
+They encode the two traps that cost the most time: the dummy plug must be
+unplugged at boot, and closing the Looking Glass window does **not** stop the
+VM. Details in [04 — Looking Glass](docs/04-looking-glass.md#daily-use).
+
 ## Guide
 
 | #  | Document                                          | Read it when                                      |
@@ -115,6 +128,8 @@ documentation rather than tested here — treat them as pointers, not gospel.
 | [`check-iommu.sh`](scripts/check-iommu.sh)                 | host    | Is this machine capable? Reports IOMMU groups.                                   |
 | [`bind-vfio.sh`](scripts/bind-vfio.sh)                     | host    | Generates the vfio-pci binding config safely                                     |
 | [`pcie-capture-budget.sh`](scripts/pcie-capture-budget.sh) | host    | Reads the real PCIe link width, prints which resolution/refresh combinations fit |
+| [`start-vm.sh`](scripts/start-vm.sh)                       | host    | Daily startup: checks, boots the VM, attaches the viewer                         |
+| [`stop-vm.sh`](scripts/stop-vm.sh)                         | host    | Clean ACPI shutdown, closes the viewer                                           |
 | [`scripts/guest/`](scripts/guest/)                         | guest   | Diagnostics that work **with no visible screen**                                 |
 
 ## Contributing
